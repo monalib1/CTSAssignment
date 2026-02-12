@@ -8,6 +8,7 @@ import { CalendarComponent } from './components/calendar.component';
 import { BookingFormComponent } from './components/booking-form.component';
 import { MyBookingsComponent } from './components/my-bookings.component';
 import { AdminTimeslotComponent } from './components/admin-timeslot.component';
+import { AdminTimeslotListComponent } from './components/admin-timeslot-list.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AdminTimeslotComponent } from './components/admin-timeslot.component';
     CalendarComponent,
     BookingFormComponent,
     MyBookingsComponent,
-    AdminTimeslotComponent
+    AdminTimeslotComponent,
+    AdminTimeslotListComponent
   ],
   imports: [
     BrowserModule,

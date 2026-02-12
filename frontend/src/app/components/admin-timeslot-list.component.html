@@ -1,0 +1,31 @@
+<div class="card">
+  <h2>Admin: All Event Timeslots</h2>
+  <div *ngIf="loading" class="spinner"></div>
+  <table *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Location</th>
+        <th>User Signed Up</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let slot of eventSlots">
+        <td>{{ slot.title }}</td>
+        <td>{{ slot.category }}</td>
+        <td>{{ slot.description }}</td>
+        <td>{{ slot.start_time | date: 'short' }}</td>
+        <td>{{ slot.end_time | date: 'short' }}</td>
+        <td>{{ slot.location }}</td>
+        <td>
+          <span *ngIf="slot.booking">{{ slot.booking.user_name }} ({{ slot.booking.user_email }})</span>
+          <span *ngIf="!slot.booking">-</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

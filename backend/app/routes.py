@@ -38,7 +38,7 @@ def create_slot():
     data = request.get_json()
     
     # Validate required fields
-    required_fields = ['title', 'start_time', 'end_time', 'capacity']
+    required_fields = ['title', 'start_time', 'end_time']
     if not all(field in data for field in required_fields):
         return jsonify({'error': 'Missing required fields'}), 400
     try:
@@ -48,7 +48,6 @@ def create_slot():
             description=data.get('description', ''),
             start_time=datetime.fromisoformat(data['start_time']),
             end_time=datetime.fromisoformat(data['end_time']),
-            capacity=data['capacity'],
             location=data.get('location', '')
         )
         db.session.add(slot)
@@ -109,12 +108,13 @@ def delete_slot(slot_id):
 def get_bookings():
     """Get all bookings (filtered by user email if provided)"""
     user_email = request.args.get('user_email')
-    
+    event_slot_id = request.args.get('event_slot_id')
+    query = Booking.query
     if user_email:
-        bookings = Booking.query.filter_by(user_email=user_email).all()
-    else:
-        bookings = Booking.query.all()
-    
+        query = query.filter_by(user_email=user_email)
+    if event_slot_id:
+        query = query.filter_by(event_slot_id=event_slot_id)
+    bookings = query.all()
     return jsonify([booking.to_dict() for booking in bookings]), 200
 
 @events_bp.route('/bookings/<int:booking_id>', methods=['GET'])
@@ -147,15 +147,6 @@ def create_booking():
     ).count()
     if current_bookings >= 1:
         return jsonify({'error': 'This slot is already booked by another user'}), 400
-
-    # Check if slot has available capacity
-    current_bookings = Booking.query.filter_by(
-        event_slot_id=data['event_slot_id'],
-        status='confirmed'
-    ).count()
-    
-    if current_bookings >= slot.capacity:
-        return jsonify({'error': 'No available slots for this event'}), 400
     
     try:
         booking = Booking(

@@ -9,6 +9,8 @@ app = create_app()
 def seed_data():
     with app.app_context():
         # Clear existing data
+        from app.models import Booking
+        Booking.query.filter_by(user_email='monalibansod7789@gmail.com').delete()
         EventSlot.query.delete()
         db.session.commit()
         
@@ -56,13 +58,20 @@ def seed_data():
                 end_time=(base_date + timedelta(days=2)).replace(hour=14, minute=0),
                 location='Conference Room 2'
             ),
+            EventSlot(
+                title='Interview for Dot net',
+                category='Interview for Dot net',
+                description='Technical interview slot for Dot net developer candidates',
+                start_time=(base_date + timedelta(days=3)).replace(hour=10, minute=0),
+                end_time=(base_date + timedelta(days=3)).replace(hour=11, minute=0),
+                location='Conference Room 3'
+            ),
         ]
         
         for slot in slots:
             db.session.add(slot)
-        
         db.session.commit()
-        print(f"✓ Seeded {len(slots)} event slots")
+        print(f"✓ Seeded {len(slots)} event slots (no default bookings)")
 
 if __name__ == '__main__':
     seed_data()

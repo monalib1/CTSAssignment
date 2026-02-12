@@ -13,10 +13,18 @@
     <button class="btn btn-secondary" (click)="showAdmin = !showAdmin">
       {{ showAdmin ? '✕ Close Admin' : '🛠️ Admin: Add Timeslot' }}
     </button>
+    <button class="btn btn-secondary" (click)="showAdminList = !showAdminList">
+      {{ showAdminList ? '✕ Close Timeslot List' : '🗂️ Admin: View All Timeslots' }}
+    </button>
   </div>
+
 
   <div *ngIf="showAdmin">
     <app-admin-timeslot></app-admin-timeslot>
+  </div>
+
+  <div *ngIf="showAdminList">
+    <app-admin-timeslot-list></app-admin-timeslot-list>
   </div>
 
   <div *ngIf="!showMyBookings && !showAdmin" class="content">

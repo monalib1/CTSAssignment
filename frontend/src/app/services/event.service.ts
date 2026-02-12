@@ -10,9 +10,10 @@ export interface EventSlot {
   description: string;
   start_time: string;
   end_time: string;
-  capacity: number;
+  capacity?: number;
   location: string;
-  available_slots: number;
+  available_slots?: number;
+  booking?: any; // for admin-timeslot-list
 }
 
 export interface Booking {
