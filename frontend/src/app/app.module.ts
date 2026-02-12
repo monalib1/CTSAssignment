@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar.component';
 import { BookingFormComponent } from './components/booking-form.component';
 import { MyBookingsComponent } from './components/my-bookings.component';
+import { AdminTimeslotComponent } from './components/admin-timeslot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
     BookingFormComponent,
-    MyBookingsComponent
+    MyBookingsComponent,
+    AdminTimeslotComponent
   ],
   imports: [
     BrowserModule,

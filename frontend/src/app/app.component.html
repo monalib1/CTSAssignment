@@ -6,13 +6,20 @@
 </header>
 
 <div class="container">
-  <div style="margin-bottom: 20px; text-align: right;">
+  <div style="margin-bottom: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end;">
     <button class="btn btn-secondary" (click)="toggleMyBookings()">
       {{ showMyBookings ? '✕ Close Bookings' : '🎟️ View My Bookings' }}
     </button>
+    <button class="btn btn-secondary" (click)="showAdmin = !showAdmin">
+      {{ showAdmin ? '✕ Close Admin' : '🛠️ Admin: Add Timeslot' }}
+    </button>
   </div>
 
-  <div *ngIf="!showMyBookings" class="content">
+  <div *ngIf="showAdmin">
+    <app-admin-timeslot></app-admin-timeslot>
+  </div>
+
+  <div *ngIf="!showMyBookings && !showAdmin" class="content">
     <app-calendar #calendar (selectSlot)="onSlotSelected($event)"></app-calendar>
     <app-booking-form
       #bookingForm
@@ -22,7 +29,7 @@
     ></app-booking-form>
   </div>
 
-  <div *ngIf="showMyBookings">
+  <div *ngIf="showMyBookings && !showAdmin">
     <app-my-bookings></app-my-bookings>
   </div>
 </div>

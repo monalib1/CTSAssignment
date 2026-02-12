@@ -14,6 +14,7 @@ export class AppComponent {
 
   selectedSlot: any = null;
   showMyBookings: boolean = false;
+  showAdmin: boolean = false;
 
   constructor(private eventService: EventService) {}
 
@@ -48,5 +49,8 @@ export class AppComponent {
 
   toggleMyBookings(): void {
     this.showMyBookings = !this.showMyBookings;
+    if (this.showMyBookings) {
+      this.showAdmin = false;
+    }
   }
 }

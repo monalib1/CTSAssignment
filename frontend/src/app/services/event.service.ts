@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface EventSlot {
   id: number;
   title: string;
+  category?: string;
   description: string;
   start_time: string;
   end_time: string;

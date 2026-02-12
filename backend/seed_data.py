@@ -18,6 +18,7 @@ def seed_data():
         slots = [
             EventSlot(
                 title='Morning Webinar: Introduction to Web Development',
+                category='Webinar',
                 description='Learn the basics of web development with HTML, CSS, and JavaScript',
                 start_time=base_date.replace(hour=9, minute=0),
                 end_time=base_date.replace(hour=11, minute=0),
@@ -26,6 +27,7 @@ def seed_data():
             ),
             EventSlot(
                 title='Afternoon Workshop: Advanced Python',
+                category='Workshop',
                 description='Deep dive into Python programming with hands-on exercises',
                 start_time=base_date.replace(hour=14, minute=0),
                 end_time=base_date.replace(hour=16, minute=30),
@@ -34,6 +36,7 @@ def seed_data():
             ),
             EventSlot(
                 title='Evening Networking Event',
+                category='Networking',
                 description='Connect with industry professionals and peers',
                 start_time=base_date.replace(hour=18, minute=0),
                 end_time=base_date.replace(hour=20, minute=0),
@@ -42,6 +45,7 @@ def seed_data():
             ),
             EventSlot(
                 title='SQL Database Design Masterclass',
+                category='Masterclass',
                 description='Master the art of designing scalable databases',
                 start_time=(base_date + timedelta(days=1)).replace(hour=10, minute=0),
                 end_time=(base_date + timedelta(days=1)).replace(hour=12, minute=0),
@@ -50,6 +54,7 @@ def seed_data():
             ),
             EventSlot(
                 title='Cloud Computing Essentials',
+                category='Seminar',
                 description='Understand AWS, Azure, and Google Cloud fundamentals',
                 start_time=(base_date + timedelta(days=2)).replace(hour=13, minute=0),
                 end_time=(base_date + timedelta(days=2)).replace(hour=15, minute=0),
@@ -58,6 +63,7 @@ def seed_data():
             ),
             EventSlot(
                 title='DevOps and CI/CD Pipeline Setup',
+                category='Workshop',
                 description='Learn to set up continuous integration and deployment',
                 start_time=(base_date + timedelta(days=3)).replace(hour=9, minute=0),
                 end_time=(base_date + timedelta(days=3)).replace(hour=11, minute=30),

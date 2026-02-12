@@ -30,10 +30,10 @@ def create_slot():
     required_fields = ['title', 'start_time', 'end_time', 'capacity']
     if not all(field in data for field in required_fields):
         return jsonify({'error': 'Missing required fields'}), 400
-    
     try:
         slot = EventSlot(
             title=data['title'],
+            category=data.get('category', ''),
             description=data.get('description', ''),
             start_time=datetime.fromisoformat(data['start_time']),
             end_time=datetime.fromisoformat(data['end_time']),
@@ -59,6 +59,8 @@ def update_slot(slot_id):
     try:
         if 'title' in data:
             slot.title = data['title']
+        if 'category' in data:
+            slot.category = data['category']
         if 'description' in data:
             slot.description = data['description']
         if 'start_time' in data:
@@ -69,7 +71,6 @@ def update_slot(slot_id):
             slot.capacity = data['capacity']
         if 'location' in data:
             slot.location = data['location']
-        
         db.session.commit()
         return jsonify(slot.to_dict()), 200
     except Exception as e:

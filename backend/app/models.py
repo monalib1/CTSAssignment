@@ -7,6 +7,7 @@ class EventSlot(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
+    category = db.Column(db.String(100), nullable=True)  # New field for event category
     description = db.Column(db.String(500))
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
@@ -20,6 +21,7 @@ class EventSlot(db.Model):
         return {
             'id': self.id,
             'title': self.title,
+            'category': self.category,
             'description': self.description,
             'start_time': self.start_time.isoformat(),
             'end_time': self.end_time.isoformat(),
