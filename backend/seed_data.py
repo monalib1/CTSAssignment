@@ -17,58 +17,44 @@ def seed_data():
         
         slots = [
             EventSlot(
-                title='Morning Webinar: Introduction to Web Development',
-                category='Webinar',
-                description='Learn the basics of web development with HTML, CSS, and JavaScript',
+                title='Interview for Python',
+                category='Interview for Python',
+                description='Technical interview slot for Python developer candidates',
                 start_time=base_date.replace(hour=9, minute=0),
-                end_time=base_date.replace(hour=11, minute=0),
-                capacity=50,
+                end_time=base_date.replace(hour=10, minute=0),
                 location='Virtual Meeting Room A'
             ),
             EventSlot(
-                title='Afternoon Workshop: Advanced Python',
-                category='Workshop',
-                description='Deep dive into Python programming with hands-on exercises',
-                start_time=base_date.replace(hour=14, minute=0),
-                end_time=base_date.replace(hour=16, minute=30),
-                capacity=30,
+                title='Interview for python developer',
+                category='Interview for python developer',
+                description='Technical interview slot for Python developer candidates',
+                start_time=base_date.replace(hour=11, minute=0),
+                end_time=base_date.replace(hour=12, minute=0),
                 location='Virtual Meeting Room B'
             ),
             EventSlot(
-                title='Evening Networking Event',
-                category='Networking',
-                description='Connect with industry professionals and peers',
-                start_time=base_date.replace(hour=18, minute=0),
-                end_time=base_date.replace(hour=20, minute=0),
-                capacity=100,
+                title='Interview for SQL',
+                category='Interview for SQL',
+                description='Technical interview slot for SQL/database candidates',
+                start_time=base_date.replace(hour=14, minute=0),
+                end_time=base_date.replace(hour=15, minute=0),
                 location='Virtual Auditorium'
             ),
             EventSlot(
-                title='SQL Database Design Masterclass',
-                category='Masterclass',
-                description='Master the art of designing scalable databases',
+                title='Interview for Cloud',
+                category='Interview for Cloud',
+                description='Technical interview slot for cloud computing candidates',
                 start_time=(base_date + timedelta(days=1)).replace(hour=10, minute=0),
-                end_time=(base_date + timedelta(days=1)).replace(hour=12, minute=0),
-                capacity=40,
+                end_time=(base_date + timedelta(days=1)).replace(hour=11, minute=0),
                 location='Conference Room 1'
             ),
             EventSlot(
-                title='Cloud Computing Essentials',
-                category='Seminar',
-                description='Understand AWS, Azure, and Google Cloud fundamentals',
+                title='Interview for DevOps',
+                category='Interview for DevOps',
+                description='Technical interview slot for DevOps candidates',
                 start_time=(base_date + timedelta(days=2)).replace(hour=13, minute=0),
-                end_time=(base_date + timedelta(days=2)).replace(hour=15, minute=0),
-                capacity=35,
+                end_time=(base_date + timedelta(days=2)).replace(hour=14, minute=0),
                 location='Conference Room 2'
-            ),
-            EventSlot(
-                title='DevOps and CI/CD Pipeline Setup',
-                category='Workshop',
-                description='Learn to set up continuous integration and deployment',
-                start_time=(base_date + timedelta(days=3)).replace(hour=9, minute=0),
-                end_time=(base_date + timedelta(days=3)).replace(hour=11, minute=30),
-                capacity=25,
-                location='Lab 1'
             ),
         ]
         

@@ -11,7 +11,7 @@ class EventSlot(db.Model):
     description = db.Column(db.String(500))
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
-    capacity = db.Column(db.Integer, default=1)
+    # capacity removed
     location = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
@@ -25,9 +25,7 @@ class EventSlot(db.Model):
             'description': self.description,
             'start_time': self.start_time.isoformat(),
             'end_time': self.end_time.isoformat(),
-            'capacity': self.capacity,
-            'location': self.location,
-            'available_slots': self.capacity - len(self.bookings)
+            'location': self.location
         }
 
 class Booking(db.Model):

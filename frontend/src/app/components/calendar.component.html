@@ -31,17 +31,15 @@
 
   <div *ngIf="!loading && filteredSlots.length > 0" class="events-list">
     <h3>Available Events</h3>
-    <div *ngFor="let slot of filteredSlots"
-         class="event-item"
-         [class.selected]="selectedSlot?.id === slot.id"
-         (click)="selectSlot(slot)">
+        <div *ngFor="let slot of filteredSlots"
+          class="event-item"
+          [class.selected]="selectedSlot?.id === slot.id"
+          (click)="selectSlot(slot)">
       <div class="event-item-title">{{ slot.title }}</div>
       <div class="event-item-time">
         {{ slot.start_time | date: 'short' }} - {{ slot.end_time | date: 'short' }}
       </div>
-      <div class="event-item-slots">
-        Available: {{ slot.available_slots }} / {{ slot.capacity }} slots
-      </div>
+      <div class="event-item-slots"></div>
     </div>
   </div>
 

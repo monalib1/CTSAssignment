@@ -139,7 +139,15 @@ def create_booking():
     slot = EventSlot.query.get(data['event_slot_id'])
     if not slot:
         return jsonify({'error': 'Event slot not found'}), 404
-    
+
+    # Enforce only one user per slot
+    current_bookings = Booking.query.filter_by(
+        event_slot_id=data['event_slot_id'],
+        status='confirmed'
+    ).count()
+    if current_bookings >= 1:
+        return jsonify({'error': 'This slot is already booked by another user'}), 400
+
     # Check if slot has available capacity
     current_bookings = Booking.query.filter_by(
         event_slot_id=data['event_slot_id'],
