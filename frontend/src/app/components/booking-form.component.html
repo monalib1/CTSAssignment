@@ -1,0 +1,64 @@
+<div class="card">
+  <h2>📝 Book an Event</h2>
+
+  <div *ngIf="submitMessage" [ngClass]="'message ' + messageType">
+    {{ submitMessage }}
+  </div>
+
+  <div *ngIf="selectedSlot; else noSelection">
+    <div class="form-group">
+      <label><strong>Selected Event:</strong></label>
+      <div style="padding: 10px; background: #f5f5f5; border-radius: 6px;">
+        <strong>{{ selectedSlot.title }}</strong><br>
+        <small>{{ selectedSlot.start_time | date: 'short' }}</small><br>
+        <small>Location: {{ selectedSlot.location }}</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userName">Full Name *</label>
+      <input
+        id="userName"
+        type="text"
+        [(ngModel)]="userName"
+        placeholder="Enter your full name"
+        [disabled]="isSubmitting"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="userEmail">Email Address *</label>
+      <input
+        id="userEmail"
+        type="email"
+        [(ngModel)]="userEmail"
+        placeholder="Enter your email address"
+        [disabled]="isSubmitting"
+      />
+    </div>
+
+    <div class="btn-group">
+      <button
+        class="btn btn-primary"
+        (click)="submitBooking()"
+        [disabled]="isSubmitting"
+      >
+        {{ isSubmitting ? 'Booking...' : '✓ Confirm Booking' }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="cancelBooking()"
+        [disabled]="isSubmitting"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noSelection>
+    <div class="empty-state">
+      <div class="empty-state-icon">🎫</div>
+      <p>Select an event from the calendar to book</p>
+    </div>
+  </ng-template>
+</div>

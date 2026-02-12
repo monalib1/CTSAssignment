@@ -1,0 +1,54 @@
+<div class="card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>🎟️ My Bookings</h2>
+    <button class="btn btn-secondary" (click)="toggleSearch()">
+      {{ showSearch ? '✕ Close' : '🔍 Search' }}
+    </button>
+  </div>
+
+  <div *ngIf="showSearch" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 6px;">
+    <label for="searchEmail">Find your bookings by email:</label>
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <input
+        id="searchEmail"
+        type="email"
+        [(ngModel)]="searchEmail"
+        placeholder="Enter your email address"
+        style="flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px;"
+      />
+      <button class="btn btn-primary" (click)="searchBookings()" style="white-space: nowrap;">
+        Search
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="spinner"></div>
+
+  <div *ngIf="!loading && bookings.length > 0">
+    <div *ngFor="let booking of bookings" class="booking-item">
+      <div class="booking-details">
+        <div class="booking-date">{{ booking.event_title }}</div>
+        <div class="booking-user">{{ booking.user_name }} ({{ booking.user_email }})</div>
+        <small>Booked on: {{ formatDate(booking.booking_date) }}</small>
+      </div>
+      <div class="booking-actions">
+        <span [ngClass]="'booking-status ' + getStatusColor(booking.status)">
+          {{ booking.status | uppercase }}
+        </span>
+        <button
+          *ngIf="booking.status === 'confirmed'"
+          class="btn btn-danger"
+          (click)="cancelBooking(booking.id)"
+          style="padding: 6px 12px; font-size: 12px;"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && bookings.length === 0" class="empty-state">
+    <div class="empty-state-icon">📭</div>
+    <p>{{ showSearch ? 'No bookings found for this email' : 'No bookings yet. Start by booking an event!' }}</p>
+  </div>
+</div>

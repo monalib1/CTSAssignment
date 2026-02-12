@@ -1,0 +1,33 @@
+<header>
+  <div class="container">
+    <h1>🎯 Event Booking System</h1>
+    <p style="text-align: center; color: #666; margin-top: 5px;">Book your favorite events from our calendar</p>
+  </div>
+</header>
+
+<div class="container">
+  <div style="margin-bottom: 20px; text-align: right;">
+    <button class="btn btn-secondary" (click)="toggleMyBookings()">
+      {{ showMyBookings ? '✕ Close Bookings' : '🎟️ View My Bookings' }}
+    </button>
+  </div>
+
+  <div *ngIf="!showMyBookings" class="content">
+    <app-calendar #calendar (selectSlot)="onSlotSelected($event)"></app-calendar>
+    <app-booking-form
+      #bookingForm
+      [selectedSlot]="calendar?.selectedSlot || null"
+      (bookingSubmitted)="onBookingSubmitted($event)"
+      (cancelled)="onBookingCancelled()"
+    ></app-booking-form>
+  </div>
+
+  <div *ngIf="showMyBookings">
+    <app-my-bookings></app-my-bookings>
+  </div>
+</div>
+
+<footer>
+  <p>📧 For support, contact: support@eventbooking.com</p>
+  <p>© 2026 Event Booking System. All rights reserved.</p>
+</footer>
