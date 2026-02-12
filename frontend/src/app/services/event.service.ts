@@ -1,3 +1,4 @@
+// ...existing code...
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -77,5 +78,9 @@ export class EventService {
 
   cancelBooking(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/bookings/${id}`);
+  }
+
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/categories`);
   }
 }

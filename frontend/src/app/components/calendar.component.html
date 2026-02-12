@@ -7,6 +7,14 @@
     <button (click)="nextMonth()">Next →</button>
   </div>
 
+  <div style="margin-bottom: 16px;">
+    <label for="categoryFilter"><strong>Filter by Category:</strong></label>
+    <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="onCategoryChange()" style="margin-left: 8px; padding: 6px 12px; border-radius: 6px;">
+      <option value="">All Categories</option>
+      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+
   <div class="calendar-grid">
     <div *ngFor="let day of weekDays" class="day-header">{{ day }}</div>
     <div *ngFor="let date of daysInMonth"

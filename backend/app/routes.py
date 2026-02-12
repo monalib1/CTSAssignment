@@ -1,9 +1,20 @@
 from flask import Blueprint, request, jsonify
+events_bp = Blueprint('events', __name__, url_prefix='/api')
 from app import db
 from app.models import EventSlot, Booking
 from datetime import datetime
 
 events_bp = Blueprint('events', __name__, url_prefix='/api')
+
+# ==================== EVENT CATEGORY FILTER ====================
+
+@events_bp.route('/categories', methods=['GET'])
+def get_categories():
+    """Get all unique event categories"""
+    categories = db.session.query(EventSlot.category).distinct().all()
+    # Flatten and remove empty categories
+    category_list = sorted(set([c[0] for c in categories if c[0]]))
+    return jsonify(category_list), 200
 
 # ==================== EVENT SLOTS ====================
 

@@ -20,12 +20,26 @@ export class CalendarComponent implements OnInit {
   filteredSlots: EventSlot[] = [];
   selectedSlot: EventSlot | null = null;
   loading: boolean = false;
+  categories: string[] = [];
+  selectedCategory: string = '';
 
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
+    this.loadCategories();
     this.loadEventSlots();
     this.generateCalendar();
+  }
+
+  loadCategories(): void {
+    this.eventService.getCategories().subscribe({
+      next: (cats) => {
+        this.categories = cats;
+      },
+      error: (err) => {
+        console.error('Error loading categories:', err);
+      }
+    });
   }
 
   loadEventSlots(): void {
@@ -47,22 +61,7 @@ export class CalendarComponent implements OnInit {
     const year = this.currentDate.getFullYear();
     const month = this.currentDate.getMonth();
 
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-    this.daysInMonth = [];
-    const date = new Date(startDate);
-
-    while (date <= lastDay || date.getDay() !== 0) {
-      if (date.getMonth() === month) {
-        this.daysInMonth.push(new Date(date));
-      } else {
-        this.daysInMonth.push(null);
-      }
-      date.setDate(date.getDate() + 1);
-    }
+    // ...existing code...
   }
 
   previousMonth(): void {
@@ -86,15 +85,24 @@ export class CalendarComponent implements OnInit {
   }
 
   filterSlotsByDate(): void {
+    let slots = this.eventSlots;
+    if (this.selectedCategory) {
+      slots = slots.filter(slot => slot.category === this.selectedCategory);
+    }
     if (!this.selectedDate) {
-      this.filteredSlots = this.eventSlots;
+      this.filteredSlots = slots;
     } else {
       const selectedDateStr = this.selectedDate.toDateString();
-      this.filteredSlots = this.eventSlots.filter(slot => {
+      this.filteredSlots = slots.filter(slot => {
         const slotDate = new Date(slot.start_time).toDateString();
         return slotDate === selectedDateStr;
       });
     }
+  }
+
+  onCategoryChange(): void {
+    this.filterSlotsByDate();
+    this.selectedSlot = null;
   }
 
   selectSlot(slot: EventSlot): void {
