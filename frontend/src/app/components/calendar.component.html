@@ -2,9 +2,9 @@
   <h2>📅 Event Calendar</h2>
 
   <div class="calendar-header">
-    <button (click)="previousMonth()">← Previous</button>
-    <h3>{{ getCurrentMonthYear() }}</h3>
-    <button (click)="nextMonth()">Next →</button>
+    <button (click)="previousWeek()">← Previous Week</button>
+    <h3>{{ getCurrentWeekRange() }}</h3>
+    <button (click)="nextWeek()">Next Week →</button>
   </div>
 
   <div style="margin-bottom: 16px;">
@@ -17,9 +17,8 @@
 
   <div class="calendar-grid">
     <div *ngFor="let day of weekDays" class="day-header">{{ day }}</div>
-    <div *ngFor="let date of daysInMonth"
+    <div *ngFor="let date of daysInWeek"
          class="day-cell"
-         [class.other-month]="!isCurrentMonth(date)"
          [class.today]="isToday(date)"
          [class.selected]="isSelected(date)"
          (click)="selectDate(date)">

@@ -9,7 +9,7 @@ import { EventService, EventSlot } from '../services/event.service';
 export class CalendarComponent implements OnInit {
   currentDate: Date = new Date();
   selectedDate: Date | null = null;
-  daysInMonth: (Date | null)[] = [];
+  daysInWeek: (Date | null)[] = [];
   weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   monthNames: string[] = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.loadEventSlots();
-    this.generateCalendar();
+    this.generateWeek();
   }
 
   loadCategories(): void {
@@ -57,24 +57,29 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  generateCalendar(): void {
-    const year = this.currentDate.getFullYear();
-    const month = this.currentDate.getMonth();
-
-    // ...existing code...
+  generateWeek(): void {
+    // Find the start of the week (Sunday)
+    const startOfWeek = new Date(this.currentDate);
+    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
+    this.daysInWeek = [];
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek);
+      day.setDate(startOfWeek.getDate() + i);
+      this.daysInWeek.push(day);
+    }
   }
 
-  previousMonth(): void {
-    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+  previousWeek(): void {
+    this.currentDate.setDate(this.currentDate.getDate() - 7);
     this.currentDate = new Date(this.currentDate);
-    this.generateCalendar();
+    this.generateWeek();
     this.filterSlotsByDate();
   }
 
-  nextMonth(): void {
-    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+  nextWeek(): void {
+    this.currentDate.setDate(this.currentDate.getDate() + 7);
     this.currentDate = new Date(this.currentDate);
-    this.generateCalendar();
+    this.generateWeek();
     this.filterSlotsByDate();
   }
 
@@ -120,12 +125,20 @@ export class CalendarComponent implements OnInit {
     return date.toDateString() === this.selectedDate.toDateString();
   }
 
-  isCurrentMonth(date: Date | null): boolean {
+  isCurrentWeek(date: Date | null): boolean {
     if (!date) return false;
-    return date.getMonth() === this.currentDate.getMonth();
+    const startOfWeek = new Date(this.currentDate);
+    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    return date >= startOfWeek && date <= endOfWeek;
   }
 
-  getCurrentMonthYear(): string {
-    return `${this.monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+  getCurrentWeekRange(): string {
+    const startOfWeek = new Date(this.currentDate);
+    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    return `${startOfWeek.getDate()} ${this.monthNames[startOfWeek.getMonth()]} - ${endOfWeek.getDate()} ${this.monthNames[endOfWeek.getMonth()]} ${endOfWeek.getFullYear()}`;
   }
 }
